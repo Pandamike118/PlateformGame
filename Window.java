@@ -14,7 +14,7 @@ public class Window extends Canvas{
 	private static final long serialVersionUID = 6733699228443403847L;
 
 	public Window(int WIDITH, int LENGTH, String TITLE, Board game) {
-		JFrame frame = new JFrame("Tower Defense Game"); // crate the frame of our window and add a title 
+		JFrame frame = new JFrame("plateformer"); // crate the frame of our window and add a title 
 		
 		frame.setPreferredSize(new Dimension(WIDITH, LENGTH));// setting the size of the window
 		frame.setMaximumSize(new Dimension(WIDITH, LENGTH));// setting the max size of the window
