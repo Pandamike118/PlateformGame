@@ -4,9 +4,11 @@ import java.awt.Canvas;
 import java.awt.Color;
 
 import java.awt.Graphics;
-
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+
+import Objects.Player;
 
 public class Boardsimple extends Canvas implements Runnable{
 	private static final long serialVersionUID = 3485185195587775746L;
@@ -15,6 +17,7 @@ public class Boardsimple extends Canvas implements Runnable{
 	public static final int HEIGHT = 832; // Setting the size of the window
 	private boolean running = false;// stating that running is equal to false
 	private Handler handler; // stating a handler class that will take care of all the objects in the game
+	private Camera cam; 
 	public static BufferedImage spread_Sheet; 
 	protected BufferedImage Image;
 	
@@ -31,11 +34,14 @@ public class Boardsimple extends Canvas implements Runnable{
 	
 	/**
 	 * Our Most important method this will load everything that the game will need
-	 * to run and create all the enemies and other thing in side the game
+	 * to run and create all objects inside of the game. the only reason we do not have this in the main class is 
+	 * because of system loading and so that it not called multiple times 
 	 */
 	public Boardsimple() {
 		handler = new Handler(); // init. a new handler
-		
+		new Window(WIDITH, HEIGHT, "plateformer prototype", this); //init. the window 
+		handler.addObject(new Player(100, 100,ID.Player));
+		cam = new Camera(0,0); //init.the camera to start at 0,0
 	}
 
 	/**
@@ -112,7 +118,11 @@ public class Boardsimple extends Canvas implements Runnable{
 
 		
 			handler.tick(); // run the tick method in the handler class
-			
+			for(int i=0; i <handler.Objects.size(); i++) {
+				if (handler.Objects.get(i).getId() == ID.Player) {
+			cam.tick(handler.Objects.get(i)); 
+					}
+				}
 	}
 
 	/*
@@ -129,12 +139,22 @@ public class Boardsimple extends Canvas implements Runnable{
 		}
 
 		Graphics g = Buffer.getDrawGraphics(); // graphics
+		Graphics2D g2d = (Graphics2D)g; 
 
+		
+		/////////////////////////////////////////////////////////////////////
+		//Draw Here
+		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDITH, HEIGHT);// this will create the background to black
+		
 
 				handler.render(g);// this will render all the objects in the game (if they are Game objects)
-				
+		
+		
+		/////////////////////////////////////////////////////////////////////		
+		
+		
 		g.dispose(); // we will dispose of the old graphics from previous frame
 		Buffer.show(); // will show the new updated graphics
 	}

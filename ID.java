@@ -5,18 +5,6 @@ package gamecore;
  *
  */
 public enum ID {
-	Warrior(),
-	Skeleton(), 
-	Archer(),
-	Catapult(), 
-	Mage(), 
-	Hercule(), 
-	Path(),
-	Arrow(), 
-	Sword(),
-	Rock(),
-	BigSkeleton(),
-	ArmorSkeleton(); 
-	
+	Player(); 
 	
 }
