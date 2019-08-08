@@ -23,6 +23,8 @@ public class Handler {
 	 */
 	public void render(Graphics g) {
 		for (int j = 0; j < Objects.size(); j++) {
+			
+			
 			GameObject tempObj = Objects.get(j);
 			
 			tempObj.render(g); 

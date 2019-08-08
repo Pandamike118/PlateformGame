@@ -4,9 +4,14 @@ import java.awt.Canvas;
 import java.awt.Color;
 
 import java.awt.Graphics;
-
+//import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+
+import Objects.Block;
+import Objects.Player;
+import Objects.Enemy.Enemy;
+
 
 public class Boardsimple extends Canvas implements Runnable{
 	private static final long serialVersionUID = 3485185195587775746L;
@@ -15,8 +20,7 @@ public class Boardsimple extends Canvas implements Runnable{
 	public static final int HEIGHT = 832; // Setting the size of the window
 	private boolean running = false;// stating that running is equal to false
 	private Handler handler; // stating a handler class that will take care of all the objects in the game
-	public static BufferedImage spread_Sheet; 
-	protected BufferedImage Image;
+	private BufferedImage level = null; 
 	
 	
 
@@ -27,15 +31,48 @@ public class Boardsimple extends Canvas implements Runnable{
 		new Boardsimple();
 
 	}
+	
+	private void loadImageLevel(BufferedImage image){ 
+		int widith = image.getWidth(); 
+		int height = image.getHeight(); 
+		
+		System.out.println("width and height of level" +widith + " "+ height);
+		
+		for (int xx=0; xx<height; xx++) { 
+			for(int yy= 0; yy< widith; yy++ ) { 
+				int pixel = image.getRGB(xx, yy); 
+				int red = (pixel >> 16) & 0xff; 
+				int green = (pixel >> 8) & 0xff; 
+				int blue = (pixel) & 0xff; 
+				
+				if (red == 255 && green == 255 && blue == 255) { 
+					handler.addObject(new Block(xx*32, yy*32 , ID.Floor));
+				}
+			}
+		} 
+		}
 
 	
 	/**
 	 * Our Most important method this will load everything that the game will need
-	 * to run and create all the enemies and other thing in side the game
+	 * to run and create all objects inside of the game. the only reason we do not have this in the main class is 
+	 * because of system loading and so that it not called multiple times 
 	 */
 	public Boardsimple() {
+		
+		BufferedImageLoader loader = new BufferedImageLoader(); 
+		level = loader.loadImage("/level1.png"); 
 		handler = new Handler(); // init. a new handler
 		new Window(WIDITH, HEIGHT, "plateformer prototype", this); //init. the window 
+<<<<<<< HEAD:Boardsimple.java
+=======
+		
+		loadImageLevel(level); 
+		handler.addObject(new Player(100, 100,ID.Player));
+		handler.addObject(new Enemy(400, 100, ID.Enemy));
+		
+		
+>>>>>>> 4a817596422d1de235befd04d864312e0a0bfc7a:src/gamecore/Boardsimple.java
 	}
 
 	/**
@@ -129,12 +166,20 @@ public class Boardsimple extends Canvas implements Runnable{
 		}
 
 		Graphics g = Buffer.getDrawGraphics(); // graphics
+		//Graphics2D g2d = (Graphics2D)g; 
 
+		
+		/////////////////////////////////////////////////////////////////////
+		//Draw Here
+		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDITH, HEIGHT);// this will create the background to black
-
+		
+		
 				handler.render(g);// this will render all the objects in the game (if they are Game objects)
-				
+		/////////////////////////////////////////////////////////////////////		
+		
+		
 		g.dispose(); // we will dispose of the old graphics from previous frame
 		Buffer.show(); // will show the new updated graphics
 	}

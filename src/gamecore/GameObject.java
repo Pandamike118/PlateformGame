@@ -13,12 +13,26 @@ public abstract class GameObject {
 	protected float Y; 
 	protected ID id; 
 	protected float volX, volY; 
+	protected boolean falling = true; 
+	protected boolean jumping = false; 
 	
 	public float getX() {
 		return X;
 	}
 	public float getY() {
 		return Y;
+	}
+	public boolean isFalling() {
+		return falling;
+	}
+	public boolean isJumping() {
+		return jumping;
+	}
+	public void setFalling(boolean falling) {
+		this.falling = falling;
+	}
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
 	}
 	public ID getId() {
 		return id;
