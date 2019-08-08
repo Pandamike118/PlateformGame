@@ -35,7 +35,7 @@ public class Boardsimple extends Canvas implements Runnable{
 	 */
 	public Boardsimple() {
 		handler = new Handler(); // init. a new handler
-		
+		new Window(WIDITH, HEIGHT, "plateformer prototype", this); //init. the window 
 	}
 
 	/**

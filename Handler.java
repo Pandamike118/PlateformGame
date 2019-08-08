@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 
 public class Handler {
-
 	public ArrayList<GameObject> Objects = new ArrayList<GameObject>(); // this the list of all the object in the Whole Game
 	/**
 	 * this Method will go through each object in he whole game and run it tick method 
